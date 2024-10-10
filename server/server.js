@@ -1,34 +1,34 @@
 const express = require("express");
 const http = require("http").createServer();
 const io = require("socket.io")(http, {
-    cors:{
-        origin:"*"
-    }
+  cors: {
+    origin: "*",
+  },
 });
 const cors = require("cors");
-
 
 const app = express();
 const port = 3000;
 
 app.use(cors());
 
-app.get("/",(req, res) => {
-    res.send("test")
-});
+let clients = {};
 
 io.on("connection", (socket) => {
-    console.log("New client connected");
+    console.log("New client " + socket.id + " connected");
 
-    socket.on('message',(data) => {
-        console.log('Recieved message:',data);
-        io.emit('message',data)
-    })
+    socket.on("setUsername", (username) => {
+        clients[socket.id] = username; 
+        io.emit("clients", Object.values(clients));
+    });
 
     socket.on("disconnect", () => {
-        console.log("Client disconnected");
+        console.log("Client disconnected: " + socket.id);
+        delete clients[socket.id]; 
+        io.emit("clients", Object.values(clients));
     });
 });
+
 
 http.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
