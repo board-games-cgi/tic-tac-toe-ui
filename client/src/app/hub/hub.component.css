@@ -11,7 +11,7 @@
 
 .title{
     font-size: 50px;
-    background: -webkit-linear-gradient(#E31937, #5236AB);
+    background: -webkit-linear-gradient(45deg,#E31937 25%, #5236AB 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
