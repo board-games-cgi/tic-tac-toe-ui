@@ -1,10 +1,10 @@
 <div *ngIf="showModal">
   <app-hubmodal (usernameSet)="onUsernameSet($event)"></app-hubmodal>
 </div>
-<div class="d-flex align-items-center" style="min-height: 100vh;">
-  <div class="border container-lg w-25 my-3 pt-3 bg-body rounded shadow-sm">
+<div class="d-flex align-items-center p-5" style="min-height: 100vh;">
+  <div class="border container-lg my-3 pt-3 bg-body rounded shadow-sm" style="width: 20rem; max-width: 100%;">
     <div class="d-flex gap-3 flex-column align-items-center justify-content-center">
-      <h1 class="title">Tic-Tac-Toe</h1>
+      <h1 class="title" style="font-size: 6.5vh; text-wrap: nowrap">Tic-Tac-Toe</h1>
     </div>
     <h6 class="border-bottom pb-2 text-success">Players Online</h6>
     <div *ngFor="let client of clients" class="d-flex text-body-secondary pt-3">
