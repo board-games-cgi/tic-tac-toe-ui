@@ -1,3 +1,11 @@
+import { HubComponent } from './hub/hub.component';
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+const routerConfig: Routes =[
+    {
+        path: '',
+        component: HubComponent,
+        data: {title: 'Hub'}
+    }
+];
+export default routerConfig
