@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-challenge-modal',
@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './challenge-modal.component.css'
 })
 export class ChallengeModalComponent {
+  @Input() challenger: string = ''; 
+  @Output() acceptChallenge: EventEmitter<void> = new EventEmitter<void>();
 
+  onAcceptChallenge(){
+    this.acceptChallenge.emit();
+  }
 }
