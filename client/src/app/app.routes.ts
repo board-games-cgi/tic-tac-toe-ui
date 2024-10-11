@@ -1,10 +1,11 @@
+import { ChallengeModalComponent } from './challenge-modal/challenge-modal.component';
 import { HubComponent } from './hub/hub.component';
 import { Routes } from '@angular/router';
 
 const routerConfig: Routes =[
     {
         path: '',
-        component: HubComponent,
+        component: ChallengeModalComponent,
         data: {title: 'Hub'}
     }
 ];
