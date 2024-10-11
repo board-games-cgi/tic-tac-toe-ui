@@ -12,18 +12,20 @@ import { HubmodalComponent } from '../modal/hub-modal/hubmodal/hubmodal.componen
 })
 export class HubComponent implements OnInit {
   public clients: string[] = [];
+  public currentUser: string = 'Player';
   public showModal: boolean = true; 
 
   constructor(private socketService: SocketService) {}
 
   ngOnInit(): void {
     this.socketService.clients.subscribe((data: string[]) => {
-      this.clients = data;
+      this.clients = data.filter(client => client !== this.currentUser);
     });
   }
 
   onUsernameSet(username: string) {
     if (username) {
+      this.currentUser = username;
       this.socketService.setUsername(username);
       this.showModal = false;
     }
