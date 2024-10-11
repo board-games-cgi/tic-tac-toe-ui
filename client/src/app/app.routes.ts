@@ -1,14 +1,11 @@
+import { HubComponent } from './hub/hub.component';
 import { Routes } from '@angular/router';
-import { GameComponent } from './game/game.component';
 
-const routesConfig: Routes = [
+const routerConfig: Routes =[
     {
-        path: 'game',
-        component: GameComponent,
-        title: 'Tic Tac Toe',
-        data: {
-            meta: 'Game Page'
-        }
+        path: '',
+        component: HubComponent,
+        data: {title: 'Hub'}
     }
 ];
-export default routesConfig;
+export default routerConfig
