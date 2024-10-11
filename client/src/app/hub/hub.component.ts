@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SocketService } from '../services/socket.service';
-import { HubmodalComponent } from '../modal/hub-modal/hubmodal/hubmodal.component';
+import { HubmodalComponent } from '../modal/hubmodal/hubmodal.component';
 
 @Component({
   selector: 'app-hub',
