@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SocketService } from '../services/socket.service';
 import { HubmodalComponent } from '../modal/hubmodal/hubmodal.component';
@@ -14,12 +14,15 @@ import { ChallengeModalComponent } from '../modal/challenge-modal/challenge-moda
 })
 export class HubComponent implements OnInit {
   public clients: {username: string, socketId: string}[] = [];
+  public clientColors: { [key: string]: string } = {};
   public currentUser: string = 'Player';
   public showModal: boolean = true;
   public showChallengeModal: boolean = false;
   public challenger: string = ''; 
 
-  constructor(private socketService: SocketService) {}
+  @ViewChild('svg') svg!: ElementRef
+
+  constructor(private socketService: SocketService) { }
 
   ngOnInit(): void {
     this.socketService.clients.subscribe((data: {username: string, socketId: string}[]) => {
@@ -31,6 +34,14 @@ export class HubComponent implements OnInit {
       this.challenger = challenger;
       this.showChallengeModal = true;
     });
+  
+    this.socketService.onColorChange().subscribe(({ username, color }) => {
+      this.clientColors[username] = color; 
+      if (username === this.currentUser) {
+        this.svg.nativeElement.style.backgroundColor = color;
+      }
+    });
+
   }
 
   onUsernameSet(username: string) {
@@ -50,4 +61,20 @@ export class HubComponent implements OnInit {
     console.log(`${this.currentUser} accepted challenge from ${this.challenger}`);
     this.showChallengeModal = false;
   }
+
+  onUserChangeColor(colorId: number) {
+    let color = '';
+    switch (colorId) {
+      case 1: color = "purple"; break;
+      case 2: color = "red"; break;
+      case 3: color = "blue"; break;
+      case 4: color = "green"; break;
+      case 5: color = "black"; break;
+      case 6: color = "yellow"; break;
+    }
+  
+    this.svg.nativeElement.style.backgroundColor = color;
+    this.socketService.setColor(this.currentUser, color);
+  };
+
 }

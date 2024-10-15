@@ -44,4 +44,13 @@ export class SocketService {
         });
       });
     }
+
+    setColor(username: string, color: string) {
+      this.emit('setColor', { username, color });
+    }
+    
+    onColorChange(): Observable<any> {
+      return this.on('colorChange');
+    }
+
 }
