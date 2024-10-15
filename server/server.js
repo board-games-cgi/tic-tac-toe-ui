@@ -34,6 +34,12 @@ io.on("connection", (socket) => {
             io.to(challengedSocketId).emit("receiveChallenge", challenger.username);
         }
     });
+
+    socket.on("challengeAccepted", (roomId) => {
+        socket.join(roomId)
+        console.log(`Client ${clients[socket.id].username} joined room: ${roomId}`)
+        io.to(roomId).emit("message", `Client ${clients[socket.id].username} joined the room: ${roomId}`)
+    })
 });
 
 http.listen(port, () => {
