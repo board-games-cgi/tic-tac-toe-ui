@@ -1,14 +1,15 @@
 <div class="modal show d-block">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">{{ challenger }} challenges you...</h1>
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" class="btn btn-secondary">Deny</button>
-          <button type="button" class="btn btn-primary" (click)="onAcceptChallenge()">Accept Challenge</button>
-        </div>
+  <div class="modal-dialog position-absolute bottom-0 end-0 m-3">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">{{ challenger }} challenges you...</h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary">Deny</button>
+        <button type="button" class="btn btn-primary" (click)="onAcceptChallenge()">Accept Challenge</button>
       </div>
     </div>
   </div>
+</div>
+
    
