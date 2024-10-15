@@ -19,7 +19,6 @@ export class HubComponent implements OnInit {
   public showModal: boolean = true;
   public showChallengeModal: boolean = false;
   public challenger: string = ''; 
-  selectedClass: string = 'black-fill';
 
   @ViewChild('svg') svg!: ElementRef
 
