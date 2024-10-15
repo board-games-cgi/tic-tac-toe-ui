@@ -1,6 +1,9 @@
 <div *ngIf="showModal">
   <app-hubmodal (usernameSet)="onUsernameSet($event)"></app-hubmodal>
 </div>
+<div *ngIf="showChallengeModal">
+  <app-challenge-modal [challenger]="challenger" (acceptChallenge)="onChallengeAccepted()"></app-challenge-modal>
+</div>
 <div class="d-flex align-items-center p-5 min-vh-100">
   <div id=border-hub class="border container-lg my-3 pt-3 bg-body rounded shadow-sm">
     <div class="d-flex gap-3 flex-column align-items-center justify-content-center">
@@ -33,8 +36,8 @@
       </svg>
       <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
         <div class="d-flex justify-content-between">
-          <strong class="text-gray-dark">{{ client }}</strong>
-          <button class="btn btn-primary rounded-pill w-5 d-flex justify-content-between" id="button">Play Against</button>
+          <strong class="text-gray-dark">{{ client.username }}</strong>
+          <button class="btn btn-primary rounded-pill w-5 d-flex justify-content-between" id="button" (click)="challengePlayer(client.socketId)">Play Against</button>
         </div>
       </div>
     </div>

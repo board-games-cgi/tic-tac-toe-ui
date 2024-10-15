@@ -19,7 +19,7 @@ io.on("connection", (socket) => {
     console.log("New client " + socket.id + " connected");
 
     socket.on("setUsername", (username) => {
-        clients[socket.id] = username; 
+        clients[socket.id] = {username, socketId: socket.id}; 
         io.emit("clients", Object.values(clients));
     });
 
@@ -35,7 +35,13 @@ io.on("connection", (socket) => {
         delete clientColors[username];
         io.emit("clients", Object.values(clients));
     });
-    
+
+    socket.on("challengePlayer", (challengedSocketId) => {
+        const challenger = clients[socket.id]; 
+        if (challenger && challengedSocketId) {
+            io.to(challengedSocketId).emit("receiveChallenge", challenger.username);
+        }
+    });
 });
 
 http.listen(port, () => {

@@ -7,12 +7,12 @@ import { Observable, Subject } from "rxjs";
 })
 export class SocketService {
     private socket: Socket;
-    public clients: Subject<string[]> = new Subject();
+    public clients: Subject<{username: string, socketId: string}[]> = new Subject()
 
     constructor() {
       this.socket = io('http://localhost:3000');
 
-      this.socket.on('clients', (data: string[]) => {
+      this.socket.on('clients', (data: {username: string, socketId: string}[])=> {
         this.clients.next(data); 
       });
     }
@@ -31,6 +31,18 @@ export class SocketService {
 
     setUsername(username: string) {
       this.emit('setUsername', username);
+    }
+
+    challengePlayer(challengedSocketId: string){
+      this.socket.emit('challengePlayer', challengedSocketId);
+    }
+
+    listenForChallenge(): Observable<string> {
+      return new Observable((observer) => {
+        this.socket.on('receiveChallenge', (challenger: string) => {
+          observer.next(challenger);
+        });
+      });
     }
 
     setColor(username: string, color: string) {
