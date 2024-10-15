@@ -14,7 +14,6 @@ export class ChallengeModalComponent {
   constructor(private service: SocketService) { }
 
   onAcceptChallenge(){
-    let roomId = Math.floor(Math.random() * 50)
-    this.service.challengeAccpeted(roomId);
+    this.service.challengeAccpeted();
   }
 }

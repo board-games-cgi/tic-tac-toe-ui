@@ -37,15 +37,15 @@ export class SocketService {
       this.socket.emit('challengePlayer', challengedSocketId);
     }
 
-    challengeAccpeted(roomId: number) {
-      this.socket.emit('challengeAccepted', roomId)
-    }
-
     listenForChallenge(): Observable<string> {
       return new Observable((observer) => {
         this.socket.on('receiveChallenge', (challenger: string) => {
           observer.next(challenger);
         });
       });
+    }
+
+    challengeAccpeted() {
+      this.socket.emit('challengeAccepted')
     }
 }
