@@ -37,7 +37,7 @@
       <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
         <div class="d-flex justify-content-between">
           <strong class="text-gray-dark">{{ client.username }}</strong>
-          <button class="btn btn-primary rounded-pill w-5 d-flex justify-content-between" id="button">Play Against</button>
+          <button class="btn btn-primary rounded-pill w-5 d-flex justify-content-between" id="button" (click)="challengePlayer(client.socketId)">Play Against</button>
         </div>
       </div>
     </div>
