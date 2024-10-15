@@ -1,0 +1,23 @@
+#button{
+    background: rgb(227,25,55);
+    background: linear-gradient(90deg, rgba(227,25,55,1) 25%, rgba(82,54,171,1) 70%);
+    border: none;
+}
+
+#button:hover{
+    background: rgb(227,25,55);
+    background: linear-gradient(90deg, rgb(156, 21, 41) 25%, rgb(50, 34, 103) 70%);
+}
+
+.title{
+    font-size: 50px;
+    background: -webkit-linear-gradient(45deg,#E31937 25%, #5236AB 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 6.5vh; 
+    text-wrap: nowrap
+}
+
+#border-hub{
+    width: 25rem
+}

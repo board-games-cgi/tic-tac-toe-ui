@@ -1,7 +1,13 @@
+import { HubComponent } from './hub/hub.component';
 import { Routes } from '@angular/router';
 import { GameComponent } from './game/game.component';
 
-const routesConfig: Routes = [
+const routerConfig: Routes =[
+    {
+        path: '',
+        component: HubComponent,
+        data: {title: 'Hub'}
+    },
     {
         path: 'game',
         component: GameComponent,
@@ -10,5 +16,6 @@ const routesConfig: Routes = [
             meta: 'Game Page'
         }
     }
+    
 ];
-export default routesConfig;
+export default routerConfig
