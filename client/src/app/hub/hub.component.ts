@@ -66,25 +66,16 @@ export class HubComponent implements OnInit {
   onUserChangeColor(colorId: number) {
     let color = '';
     switch (colorId) {
-      case 1:
-        this.svg.nativeElement.style.backgroundColor = "purple"
-        break
-      case 2:
-        this.svg.nativeElement.style.backgroundColor = "red"
-        break
-      case 3:
-        this.svg.nativeElement.style.backgroundColor = "blue"
-        break
-      case 4:
-        this.svg.nativeElement.style.backgroundColor = "green"
-        break
-      case 5:
-        this.svg.nativeElement.style.backgroundColor = "black"
-        break
-      case 6:
-        this.svg.nativeElement.style.backgroundColor = "yellow"
-        break
+      case 1: color = "purple"; break;
+      case 2: color = "red"; break;
+      case 3: color = "blue"; break;
+      case 4: color = "green"; break;
+      case 5: color = "black"; break;
+      case 6: color = "yellow"; break;
     }
+  
+    this.svg.nativeElement.style.backgroundColor = color;
+    this.socketService.setColor(this.currentUser, color);
   };
 
 }

@@ -32,12 +32,12 @@
     <div *ngFor="let client of clients" class="d-flex text-body-secondary pt-3">
       <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" role="img"
         aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"
-        [style.background-color]="clientColors[client] || 'gray'">
+        [style.background-color]="clientColors[client.username] || 'gray'">
       </svg>
       <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
         <div class="d-flex justify-content-between">
           <strong class="text-gray-dark">{{ client.username }}</strong>
-          <button class="btn btn-primary rounded-pill w-5 d-flex justify-content-between" id="button" (click)="challengePlayer(client.socketId)">Play Against</button>
+          <button class="btn btn-primary rounded-pill w-5 d-flex justify-content-between" id="button">Play Against</button>
         </div>
       </div>
     </div>

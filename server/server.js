@@ -25,16 +25,17 @@ io.on("connection", (socket) => {
 
     socket.on("setColor", ({ username, color }) => {
         clientColors[username] = color;
-        io.emit("colorChange", { username, color });
+        io.emit("colorChange", { username, color }); 
     });
     
     socket.on("disconnect", () => {
         console.log("Client disconnected: " + socket.id);
         const username = clients[socket.id];
         delete clients[socket.id]; 
-        delete clientColors[username];
+        delete clientColors[username]; 
         io.emit("clients", Object.values(clients));
     });
+    
 
     socket.on("challengePlayer", (challengedSocketId) => {
         const challenger = clients[socket.id]; 
