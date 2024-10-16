@@ -50,7 +50,7 @@ io.on("connection", (socket) => {
 
             io.to(roomId).emit('redirect', `https://getbootstrap.com/`);
 
-            delete challenges[socket.id]
+            // delete challenges[socket.id]
         }
     })
 })

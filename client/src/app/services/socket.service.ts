@@ -45,7 +45,13 @@ export class SocketService {
       });
     }
 
-    challengeAccpeted() {
+    challengeAccepted() {
       this.socket.emit('challengeAccepted')
+    }
+
+    redirect() {
+      this.socket.on('redirect', url => {
+        window.location.href = url
+      })
     }
 }

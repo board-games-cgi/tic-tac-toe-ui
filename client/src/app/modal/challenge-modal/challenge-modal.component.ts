@@ -14,6 +14,7 @@ export class ChallengeModalComponent {
   constructor(private service: SocketService) { }
 
   onAcceptChallenge(){
-    this.service.challengeAccpeted();
+    this.service.challengeAccepted();
+    this.service.redirect()
   }
 }
