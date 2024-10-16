@@ -14,21 +14,29 @@ app.use(cors())
 
 let clients = {}
 let challenges = {}
+let clientColors = {}; 
 
 io.on("connection", (socket) => {
     console.log("New client " + socket.id + " connected")
 
     socket.on("setUsername", (username) => {
-        clients[socket.id] = { username, socketId: socket.id }
-        io.emit("clients", Object.values(clients))
-    })
+        clients[socket.id] = {username, socketId: socket.id}; 
+        io.emit("clients", Object.values(clients));
+    });
 
+    socket.on("setColor", ({ username, color }) => {
+        clientColors[username] = color;
+        io.emit("colorChange", { username, color }); 
+    });
+    
     socket.on("disconnect", () => {
-        console.log("Client disconnected: " + socket.id)
-        delete clients[socket.id]
-        delete challenges[socket.id]
-        io.emit("clients", Object.values(clients))
-    })
+        console.log("Client disconnected: " + socket.id);
+        const username = clients[socket.id];
+        delete clients[socket.id]; 
+        delete clientColors[username]; 
+        io.emit("clients", Object.values(clients));
+    });
+    
 
     socket.on("challengePlayer", (challengedSocketId) => {
         const challenger = clients[socket.id]

@@ -44,7 +44,6 @@ export class SocketService {
         });
       });
     }
-
     challengeAccepted() {
       this.socket.emit('challengeAccepted')
     }
@@ -54,4 +53,14 @@ export class SocketService {
         window.location.href = url
       })
     }
+
+
+    setColor(username: string, color: string) {
+      this.emit('setColor', { username, color });
+    }
+    
+    onColorChange(): Observable<any> {
+      return this.on('colorChange');
+    }
+
 }

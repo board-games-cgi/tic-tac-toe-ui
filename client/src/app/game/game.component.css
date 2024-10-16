@@ -1,0 +1,9 @@
+.col{
+    width: 11.5rem;
+    height: 10rem;
+}
+
+input{
+    appearance: none;
+    cursor: pointer;
+}
