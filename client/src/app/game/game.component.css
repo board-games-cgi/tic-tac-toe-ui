@@ -1,9 +1,23 @@
-.col{
-    width: 11.5rem;
-    height: 10rem;
+h1{
+  display: flex;
+  justify-content: center;
 }
 
-input{
-    appearance: none;
-    cursor: pointer;
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  justify-content: center;
+  align-content: center;
+}
+.cell {
+  width: 100px;
+  height: 100px;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  cursor: pointer;
 }

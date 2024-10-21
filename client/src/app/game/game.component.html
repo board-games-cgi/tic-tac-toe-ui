@@ -1,38 +1,41 @@
-<div class="container text-center">
-    <div class="row">
-      <div class="col p-0 d-flex align-items-center justify-content-center border-end border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border-end border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./game.component.css">
+  <title>Multiplayer Tic-Tac-Toe</title>
+</head>
+<body>
+  <h1>Tic-Tac-Toe</h1>
+  <div id="board">
+    <div class="cell" data-index="0" (click)="onCellClick(0)">
+      {{ board[0] }}
     </div>
-
-    <div class="row">
-      <div class="col p-0 d-flex align-items-center justify-content-center border border-start-0 border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border border-start-0 border-end-0 border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border border-end-0 border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
+    <div class="cell" data-index="1" (click)="onCellClick(1)">
+      {{ board[1] }}
     </div>
-
-    <div class="row">
-      <div class="col p-0 d-flex align-items-center justify-content-center border-end border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border-end border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
+    <div class="cell" data-index="2" (click)="onCellClick(2)">
+      {{ board[2] }}
+    </div>
+    <div class="cell" data-index="3" (click)="onCellClick(3)">
+      {{ board[3] }}
+    </div>
+    <div class="cell" data-index="4" (click)="onCellClick(4)">
+      {{ board[4] }}
+    </div>
+    <div class="cell" data-index="5" (click)="onCellClick(5)">
+      {{ board[5] }}
+    </div>
+    <div class="cell" data-index="6" (click)="onCellClick(6)">
+      {{ board[6] }}
+    </div>
+    <div class="cell" data-index="7" (click)="onCellClick(7)">
+      {{ board[7] }}
+    </div>
+    <div class="cell" data-index="8" (click)="onCellClick(8)">
+      {{ board[8] }}
     </div>
   </div>
-  
+</body>
+</html>
