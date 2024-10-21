@@ -42,6 +42,9 @@ export class HubComponent implements OnInit {
       }
     });
 
+    this.socketService.redirect().subscribe(url => {
+      window.location.href = url
+    });
   }
 
   onUsernameSet(username: string) {
@@ -76,5 +79,4 @@ export class HubComponent implements OnInit {
     this.svg.nativeElement.style.backgroundColor = color;
     this.socketService.setColor(this.currentUser, color);
   };
-
 }

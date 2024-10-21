@@ -35,8 +35,7 @@ io.on("connection", (socket) => {
         delete clients[socket.id]; 
         delete clientColors[username]; 
         io.emit("clients", Object.values(clients));
-    });
-    
+    });   
 
     socket.on("challengePlayer", (challengedSocketId) => {
         const challenger = clients[socket.id]
@@ -47,16 +46,17 @@ io.on("connection", (socket) => {
     })
 
     socket.on("challengeAccepted", () => {
-        const challengerId = challenges[socket.id]
+        const challenger = challenges[socket.id]
         
-        if (challengerId) {
-            const roomId = `${challengerId}_${socket.id}`
+        if (challenger) {
+            const roomId = `${challenger}_${socket.id}`
             socket.join(roomId)
-            io.sockets.sockets.get(challengerId).join(roomId)
+            io.sockets.sockets.get(challenger).join(roomId)
 
-            console.log(`Client ${clients[socket.id].username} and ${clients[challengerId].username} joined room: ${roomId}`)
+            const clients = io.sockets.adapter.rooms.get(roomId)
+            console.log(clients)
 
-            io.to(roomId).emit('redirect', `https://getbootstrap.com/`);
+            io.sockets.in(roomId).emit("redirect", "https://getbootstrap.com/")
 
             // delete challenges[socket.id]
         }

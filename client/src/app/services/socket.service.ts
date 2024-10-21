@@ -44,16 +44,18 @@ export class SocketService {
         });
       });
     }
+
     challengeAccepted() {
       this.socket.emit('challengeAccepted')
     }
 
-    redirect() {
-      this.socket.on('redirect', url => {
-        window.location.href = url
-      })
+    redirect(): Observable<string> {
+      return new Observable((observer) => {
+        this.socket.on('redirect', (url: string) => {
+          observer.next(url);
+        });
+      });
     }
-
 
     setColor(username: string, color: string) {
       this.emit('setColor', { username, color });

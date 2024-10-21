@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 @Component({
   selector: 'app-challenge-modal',
@@ -15,6 +15,5 @@ export class ChallengeModalComponent {
 
   onAcceptChallenge(){
     this.service.challengeAccepted();
-    this.service.redirect()
   }
 }
