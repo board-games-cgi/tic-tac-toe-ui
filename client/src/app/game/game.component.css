@@ -28,3 +28,9 @@ section{
     border: 1px solid #333;
     cursor: pointer;
 }
+
+.playerPlaying{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./game.component.css">
   <title>Multiplayer Tic-Tac-Toe</title>
 </head>
+
 <body>
-  <h1>Tic-Tac-Toe</h1>
+  <h1>Client1 vs Client2</h1>
+  <h3 class="playerPlaying">Player playing: {{ currentPlayer }}</h3>
   <div id="board">
     <div class="cell" data-index="0" (click)="onCellClick(0)">
       {{ board[0] }}
