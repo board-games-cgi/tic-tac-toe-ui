@@ -67,7 +67,7 @@ io.on("connection", (socket) => {
             const clients = io.sockets.adapter.rooms.get(roomId)
             console.log(clients)
             console.log("roomId: ",roomId)
-            io.sockets.in(roomId).emit("redirect", `game?roomId=${roomId}`)
+            io.sockets.in(roomId).emit("redirect", `game/${roomId}`)
             // delete challenges[socket.id]
         }
     })
