@@ -65,4 +65,12 @@ export class SocketService {
       return this.on('colorChange');
     }
 
+    listenForRoomAccessDenied(): Observable<string> {
+      return new Observable((observer) => {
+          this.socket.on('roomAccessDenied', (message: string) => {
+              observer.next(message);
+          });
+      });
+  }
+
 }

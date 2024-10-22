@@ -15,6 +15,8 @@ app.use(cors())
 let clients = {}
 let challenges = {}
 let clientColors = {}; 
+let roomParticipants = {};
+
 
 io.on("connection", (socket) => {
     console.log("New client " + socket.id + " connected")
@@ -50,17 +52,38 @@ io.on("connection", (socket) => {
         
         if (challenger) {
             const roomId = `${challenger}_${socket.id}`
-            socket.join(roomId)
-            io.sockets.sockets.get(challenger).join(roomId)
+
+            roomParticipants[roomId] = [challenger, socket.id]
+            
+            if (roomParticipants[roomId] && roomParticipants[roomId].includes(socket.id)) {
+                socket.join(roomId);
+                io.sockets.sockets.get(challenger).join(roomId)
+                io.to(roomId).emit("playerJoined", { playerId: socket.id });
+                io.to(roomId).emit("playerJoined", { playerId: challenger });
+            } else {
+                socket.emit("roomAccessDenied", "You are not allowed to join this room.");
+            }
 
             const clients = io.sockets.adapter.rooms.get(roomId)
             console.log(clients)
-
-            io.sockets.in(roomId).emit("redirect", "https://getbootstrap.com/")
-
+            console.log("roomId: ",roomId)
+            io.sockets.in(roomId).emit("redirect", `game?roomId=${roomId}`)
             // delete challenges[socket.id]
         }
     })
+
+    //test
+    socket.on("joinRoom", (roomId) => {
+        const allowedParticipants = roomParticipants[roomId];
+        socket.join(roomId);
+        if (allowedParticipants && allowedParticipants.includes(socket.id)) {
+            socket.join(roomId);
+            io.to(roomId).emit("playerJoined", { playerId: socket.id });
+        } else {
+            socket.emit("roomAccessDenied", "You are not allowed to join this room.");
+        }
+    });
+    
 })
 
 http.listen(port, () => {

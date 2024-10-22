@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SocketService } from '../services/socket.service';
 import { HubmodalComponent } from '../modal/hubmodal/hubmodal.component';
 import { ChallengeModalComponent } from '../modal/challenge-modal/challenge-modal.component';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-hub',
   standalone: true,
-  imports: [CommonModule, HubmodalComponent, ChallengeModalComponent],
+  imports: [CommonModule, HubmodalComponent, ChallengeModalComponent, FormsModule],
   templateUrl: './hub.component.html',
   styleUrls: ['./hub.component.css']
 })
@@ -19,6 +20,7 @@ export class HubComponent implements OnInit {
   public showModal: boolean = true;
   public showChallengeModal: boolean = false;
   public challenger: string = ''; 
+  roomId: string = '';
 
   @ViewChild('svg') svg!: ElementRef
 
@@ -44,6 +46,10 @@ export class HubComponent implements OnInit {
 
     this.socketService.redirect().subscribe(url => {
       window.location.href = url
+    });
+
+    this.socketService.on('roomAccessDenied').subscribe((message: string) => {
+      alert(message);
     });
   }
 
@@ -79,4 +85,9 @@ export class HubComponent implements OnInit {
     this.svg.nativeElement.style.backgroundColor = color;
     this.socketService.setColor(this.currentUser, color);
   };
+
+  //test
+  joinRoom() {
+      this.socketService.emit('joinRoom', this.roomId);
+  }
 }
