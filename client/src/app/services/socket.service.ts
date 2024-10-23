@@ -66,12 +66,12 @@ export class SocketService {
       return this.on('colorChange');
     }
 
-    listenForRoomAccessDenied(): Observable<string> {
-      return new Observable((observer) => {
-          this.socket.on('roomAccessDenied', (message: string) => {
-              observer.next(message);
-          });
+  checkRoomAccess(roomId: string): Observable<{isAllowed: boolean, allowedParticipants :string[]}> {
+    return new Observable((observer) => {
+      this.socket.emit('checkRoomAccess', roomId);
+      this.socket.on('roomAccessResult', (data: {isAllowed: boolean, allowedParticipants :string[]}) => {
+        observer.next(data);
       });
+    });
   }
-
 }

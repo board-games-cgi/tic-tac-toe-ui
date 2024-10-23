@@ -55,33 +55,23 @@ io.on("connection", (socket) => {
 
             roomParticipants[roomId] = [challenger, socket.id]
             
-            if (roomParticipants[roomId] && roomParticipants[roomId].includes(socket.id)) {
-                socket.join(roomId);
-                io.sockets.sockets.get(challenger).join(roomId)
-                io.to(roomId).emit("playerJoined", { playerId: socket.id });
-                io.to(roomId).emit("playerJoined", { playerId: challenger });
-            } else {
-                socket.emit("roomAccessDenied", "You are not allowed to join this room.");
-            }
+            socket.join(roomId)
+            io.sockets.sockets.get(challenger).join(roomId)
+            io.to(roomId).emit("playerJoined", { playerId: socket.id });
+            io.to(roomId).emit("playerJoined", { playerId: challenger });
 
             const clients = io.sockets.adapter.rooms.get(roomId)
             console.log(clients)
             console.log("roomId: ",roomId)
-            io.sockets.in(roomId).emit("redirect", `game/${roomId}`);
-            // delete challenges[socket.id]
+            io.sockets.in(roomId).emit("redirect", `game/${roomId}`)
         }
     })
-
-    //test
-    socket.on("joinRoom", (roomId) => {
+    
+    socket.on("checkRoomAccess", (roomId) => {
         const allowedParticipants = roomParticipants[roomId];
-        socket.join(roomId);
-        if (allowedParticipants && allowedParticipants.includes(socket.id)) {
-            socket.join(roomId);
-            io.to(roomId).emit("playerJoined", { playerId: socket.id });
-        } else {
-            socket.emit("roomAccessDenied", "You are not allowed to join this room.");
-        }
+        const isAllowed = allowedParticipants && allowedParticipants.includes(socket.id);
+        
+        socket.emit("roomAccessResult", {isAllowed, allowedParticipants});
     });
     
 })

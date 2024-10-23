@@ -14,10 +14,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GameComponent implements OnInit {
   roomId: string = '';
-  public roomAccessError: string = ''; 
+  public roomAccessError: string = '';
   constructor(private socketService: SocketService, private route: ActivatedRoute) { }
 
- 
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.roomId = params.get('roomId') || '';
