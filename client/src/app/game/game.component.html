@@ -40,5 +40,16 @@
       {{ board[8] }}
     </div>
   </div>
+
+  <div *ngIf="isWin" class="message">
+    <h3>Player {{ currentPlayer }} wins!</h3>
+    <button (click)="resetGame()">Reset Game</button>
+  </div>
+
+  <div *ngIf="isDraw" class="message">
+    <h3>It's a draw!</h3>
+    <button (click)="resetGame()">Reset Game</button>
+  </div>
+
 </body>
 </html>

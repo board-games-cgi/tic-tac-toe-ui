@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
 export class GameComponent {
   board: (string | null)[] = Array(9).fill(null);
   currentPlayer: string = 'X'; 
+  isWin: boolean = false;
+  isDraw: boolean = false;
+  isGameOver: boolean = false;
+
 
   winningCombinations = [
     [0, 1, 2],
@@ -24,7 +28,7 @@ export class GameComponent {
   ];
     
   onCellClick(cellIndex: number): void {
-    if (this.board[cellIndex] !== null) {
+    if (this.board[cellIndex] !== null || this.isGameOver) {
       return;
     }
     
@@ -33,10 +37,16 @@ export class GameComponent {
     console.log(`Cell clicked: ${cellIndex}, Player: ${this.currentPlayer}`);
 
     if (this.checkForWin()) {
-      console.log(`The player ${this.currentPlayer} won the game!`);
-      this.resetGame()
+      this.isWin = true;
+      this.isGameOver = true;
       return;
-    } 
+    }
+
+    if (this.isBoardFull()) {
+      this.isDraw = true;
+      this.isGameOver = true;
+      return;
+    }
 
     this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
   };
@@ -51,8 +61,15 @@ export class GameComponent {
     return false;
   }
 
+  isBoardFull(): boolean {
+    return this.board.every(cell => cell !== null);
+  }
+
   resetGame(){
   this.board = Array(9).fill(null);
-  this.currentPlayer = 'X'; 
+  this.currentPlayer = 'X';
+  this.isWin = false;
+  this.isDraw = false;
+  this.isGameOver = false;
   }
 }
