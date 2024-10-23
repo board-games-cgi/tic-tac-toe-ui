@@ -13,17 +13,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './game.component.css'
 })
 export class GameComponent implements OnInit {
-  public roomAccessError: string = ''; 
+  public roomAccessError: string = '';
   constructor(private socketService: SocketService, private activatedRoute: ActivatedRoute) { }
 
- 
-  ngOnInit(): void {
-    this.socketService.listenForRoomAccessDenied().subscribe((message: string) => {
-      this.roomAccessError = message;
-      console.error('Room access denied:', message);
-      alert(message);
-    });
 
-    
-  }
+  ngOnInit(): void {
+
+  };
+
 }

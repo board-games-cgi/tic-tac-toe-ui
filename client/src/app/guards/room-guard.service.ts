@@ -1,34 +1,27 @@
 import { Injectable } from "@angular/core";
-import { io, Socket } from 'socket.io-client';
-import { Observable, Subject } from "rxjs";
 import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from "@angular/router";
 import { SocketService } from "../services/socket.service";
+import { map, Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root',
 })
 export class RoomGuard implements CanActivate {
     
-
   constructor(private socketService: SocketService, private router: Router) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const roomId = route.params["roomId"];
-
-    return new Observable<boolean>((observer) => {
-      this.socketService.emit('joinRoom', roomId);
-
-      this.socketService.listenForRoomAccessDenied().subscribe((message: string) => {
-        console.error('Access Denied:', message);
-        this.router.navigate(['/']);
-        observer.next(false);
-        observer.complete();
-      });
-
-      this.socketService.on('playerJoined').subscribe(() => {
-        observer.next(true);
-        observer.complete();
-      });
-    });
-  } 
+        return this.socketService.checkRoomAccess(roomId).pipe(map((data: {isAllowed: boolean, allowedParticipants :string[]}) => {
+        if (data.isAllowed) {
+          return true;
+        } else {
+          console.error("Access Denied");
+          console.log(`Players allowed: ${data.allowedParticipants}`)
+          return false;
+        }
+      })
+    );
+  }
 }
+
