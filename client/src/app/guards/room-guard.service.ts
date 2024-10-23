@@ -14,6 +14,7 @@ export class RoomGuard implements CanActivate {
     const roomId = route.params["roomId"];
         return this.socketService.checkRoomAccess(roomId).pipe(map((data: {isAllowed: boolean, allowedParticipants :string[]}) => {
         if (data.isAllowed) {
+          console.log("Access Allowed");
           return true;
         } else {
           console.error("Access Denied");

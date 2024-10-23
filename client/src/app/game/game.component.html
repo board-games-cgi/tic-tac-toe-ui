@@ -1,41 +1,25 @@
-<div *ngIf="roomAccessError" class="alert alert-danger">
-  {{ roomAccessError }}
-</div>
-<div class="container text-center">
-    <div class="row">
-      <div class="col p-0 d-flex align-items-center justify-content-center border-end border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border-end border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./game.component.css">
+  <title>Multiplayer Tic-Tac-Toe</title>
+</head>
+<body>
+  <section>
+    <h1>Client1 vs Client2</h1>
+    <div id="board">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
     </div>
-
-    <div class="row">
-      <div class="col p-0 d-flex align-items-center justify-content-center border border-start-0 border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border border-start-0 border-end-0 border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border border-end-0 border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col p-0 d-flex align-items-center justify-content-center border-end border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border-end border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-      <div class="col p-0 d-flex align-items-center justify-content-center border-primary">
-        <input type="checkbox" class="w-100 h-100">
-      </div>
-    </div>
-  </div>
-  
+  </section>
+</body>
+</html>

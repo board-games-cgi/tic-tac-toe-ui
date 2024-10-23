@@ -10,15 +10,14 @@ const routerConfig: Routes =[
         data: {title: 'Hub'}
     },
     {
-        path: 'game/:roomId',
-        // children: [
-        //     {
-        //         path: ':roomId',
-        //         component: GameComponent,
-        //         canActivate: [RoomGuard]
-        //     }
-        // ],
-        component: GameComponent,
+        path: 'game',
+        children: [
+            {
+                path: ':roomId',
+                component: GameComponent,
+                canActivate: [RoomGuard]
+            }
+        ],
         title: 'Tic Tac Toe',
         data: {
             meta: 'Game Page'
