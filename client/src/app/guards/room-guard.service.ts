@@ -12,23 +12,9 @@ export class RoomGuard implements CanActivate {
 
   constructor(private socketService: SocketService, private router: Router) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const roomId = route.params["roomId"];
 
-    return new Observable<boolean>((observer) => {
-      this.socketService.emit('joinRoom', roomId);
-
-      this.socketService.listenForRoomAccessDenied().subscribe((message: string) => {
-        console.error('Access Denied:', message);
-        this.router.navigate(['/']);
-        observer.next(false);
-        observer.complete();
-      });
-
-      this.socketService.on('playerJoined').subscribe(() => {
-        observer.next(true);
-        observer.complete();
-      });
-    });
+    return true
   } 
 }

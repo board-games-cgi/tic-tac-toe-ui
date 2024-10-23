@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { io, Socket } from 'socket.io-client';
 import { Observable, Subject } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root',
@@ -9,7 +10,7 @@ export class SocketService {
     private socket: Socket;
     public clients: Subject<{username: string, socketId: string}[]> = new Subject()
 
-    constructor() {
+    constructor(private router: Router) {
       this.socket = io('http://localhost:3000');
 
       this.socket.on('clients', (data: {username: string, socketId: string}[])=> {
@@ -52,7 +53,7 @@ export class SocketService {
     redirect(): Observable<string> {
       return new Observable((observer) => {
         this.socket.on('redirect', (url: string) => {
-          observer.next(url);
+          this.router.navigate([url]);
         });
       });
     }

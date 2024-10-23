@@ -44,9 +44,7 @@ export class HubComponent implements OnInit {
       }
     });
 
-    this.socketService.redirect().subscribe(url => {
-      window.location.href = url
-    });
+    this.socketService.redirect().subscribe(url => {});
 
     this.socketService.on('roomAccessDenied').subscribe((message: string) => {
       alert(message);
