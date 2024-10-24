@@ -56,9 +56,7 @@ io.on("connection", (socket) => {
             const clients = io.sockets.adapter.rooms.get(roomId)
             console.log(clients)
 
-            io.sockets.in(roomId).emit("redirect", "https://getbootstrap.com/")
-
-            // delete challenges[socket.id]
+            io.sockets.in(roomId).emit("redirect", "/game")
         }
     })
 })

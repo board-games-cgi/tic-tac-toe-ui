@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SocketService } from '../services/socket.service';
 import { HubmodalComponent } from '../modal/hubmodal/hubmodal.component';
 import { ChallengeModalComponent } from '../modal/challenge-modal/challenge-modal.component';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hub',
@@ -22,7 +22,7 @@ export class HubComponent implements OnInit {
 
   @ViewChild('svg') svg!: ElementRef
 
-  constructor(private socketService: SocketService) { }
+  constructor(private socketService: SocketService, private router: Router) { }
 
   ngOnInit(): void {
     this.socketService.clients.subscribe((data: {username: string, socketId: string}[]) => {
@@ -43,7 +43,7 @@ export class HubComponent implements OnInit {
     });
 
     this.socketService.redirect().subscribe(url => {
-      window.location.href = url
+      this.router.navigate([url])
     });
   }
 

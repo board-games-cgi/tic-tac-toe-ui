@@ -64,5 +64,4 @@ export class SocketService {
     onColorChange(): Observable<any> {
       return this.on('colorChange');
     }
-
 }

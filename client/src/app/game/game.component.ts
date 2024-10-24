@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'app-game',
@@ -8,5 +9,4 @@ import { Component } from '@angular/core';
   styleUrl: './game.component.css'
 })
 export class GameComponent {
-
 }
