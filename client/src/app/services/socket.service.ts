@@ -74,4 +74,12 @@ export class SocketService {
       });
     });
   }
+
+  makeMove(roomId: string, cellIndex: number, player: string) {
+    this.emit('makeMove', { roomId, cellIndex, player });
+  }
+  
+  listenForBoardUpdates(): Observable<{ board: (string | null)[], nextPlayer: string }> {
+    return this.on('updateBoard');
+  }  
 }
