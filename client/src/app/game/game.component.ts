@@ -1,20 +1,27 @@
 import { Component } from '@angular/core';
+import { SocketService } from '../services/socket.service';
+import { OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgIf, CommonModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
-export class GameComponent {
+export class GameComponent implements OnInit {
+  roomId: string = '';
+  public roomAccessError: string = '';
   board: (string | null)[] = Array(9).fill(null);
   currentPlayer: string = 'X'; 
   isWin: boolean = false;
   isDraw: boolean = false;
   isGameOver: boolean = false;
-
+  constructor(private socketService: SocketService, private route: ActivatedRoute) { }
 
   winningCombinations = [
     [0, 1, 2],
@@ -71,5 +78,13 @@ export class GameComponent {
   this.isWin = false;
   this.isDraw = false;
   this.isGameOver = false;
+  }
+
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.roomId = params.get('roomId') || '';
+      this.socketService.emit('joinRoom', this.roomId);
+    });
   }
 }

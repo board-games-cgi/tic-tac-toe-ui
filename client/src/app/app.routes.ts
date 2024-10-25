@@ -1,6 +1,7 @@
 import { HubComponent } from './hub/hub.component';
 import { Routes } from '@angular/router';
 import { GameComponent } from './game/game.component';
+import { RoomGuard } from './guards/room-guard.service';
 
 const routerConfig: Routes =[
     {
@@ -10,7 +11,13 @@ const routerConfig: Routes =[
     },
     {
         path: 'game',
-        component: GameComponent,
+        children: [
+            {
+                path: ':roomId',
+                component: GameComponent,
+                canActivate: [RoomGuard]
+            }
+        ],
         title: 'Tic Tac Toe',
         data: {
             meta: 'Game Page'

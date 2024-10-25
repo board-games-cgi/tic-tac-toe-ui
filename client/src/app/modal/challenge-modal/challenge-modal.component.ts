@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SocketService } from '../../services/socket.service';
 @Component({
   selector: 'app-challenge-modal',
   standalone: true,
@@ -11,7 +11,9 @@ export class ChallengeModalComponent {
   @Input() challenger: string = ''; 
   @Output() acceptChallenge: EventEmitter<void> = new EventEmitter<void>();
 
+  constructor(private service: SocketService) { }
+
   onAcceptChallenge(){
-    this.acceptChallenge.emit();
+    this.service.challengeAccepted();
   }
 }
