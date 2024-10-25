@@ -28,3 +28,8 @@ section{
     border: 1px solid #333;
     cursor: pointer;
 }
+
+.cell.disabled {
+    pointer-events: none;
+    opacity: 0.5; 
+}
