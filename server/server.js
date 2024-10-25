@@ -85,10 +85,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("closeGame", (roomId) => {
-        socket.leave(roomId)
-
-        const clients = io.sockets.adapter.rooms.get(roomId)
-        console.log(clients)
+        io.in(roomId).socketsLeave(roomId);
     })
 })
 
