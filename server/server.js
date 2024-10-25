@@ -16,7 +16,7 @@ let clients = {}
 let challenges = {}
 let clientColors = {}; 
 let roomParticipants = {};
-
+let gameStates = {};
 
 io.on("connection", (socket) => {
     console.log("New client " + socket.id + " connected")
@@ -74,6 +74,15 @@ io.on("connection", (socket) => {
         socket.emit("roomAccessResult", {isAllowed, allowedParticipants});
     });
     
+    socket.on("makeMove", ({ roomId, cellIndex, player }) => {
+        if (!gameStates[roomId]) {
+            gameStates[roomId] = Array(9).fill(null); 
+        }
+        if (!gameStates[roomId][cellIndex]) {
+            gameStates[roomId][cellIndex] = player;
+            io.to(roomId).emit("updateBoard", { board: gameStates[roomId], nextPlayer: player === 'X' ? 'O' : 'X' });
+        }
+    });
 })
 
 http.listen(port, () => {

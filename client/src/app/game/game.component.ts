@@ -20,21 +20,21 @@ export class GameComponent implements OnInit {
   constructor(private socketService: SocketService, private route: ActivatedRoute) { }
 
   onCellClick(cellIndex: number): void {
-    if (this.board[cellIndex] !== null) {
-      return;
-    }
-    
-    this.board[cellIndex] = this.currentPlayer;
-
-    console.log(`Cell clicked: ${cellIndex}, Player: ${this.currentPlayer}`);
-
-    this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+    if (this.board[cellIndex] !== null) return;
+  
+    this.socketService.makeMove(this.roomId, cellIndex, this.currentPlayer);
   }
-
+  
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.roomId = params.get('roomId') || '';
       this.socketService.emit('joinRoom', this.roomId);
     });
+  
+    this.socketService.listenForBoardUpdates().subscribe((data) => {
+      this.board = data.board;
+      this.currentPlayer = data.nextPlayer;
+    });
   }
+
 }
