@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { io, Socket } from 'socket.io-client';
 import { Observable, Subject } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root',
@@ -9,7 +10,7 @@ export class SocketService {
     private socket: Socket;
     public clients: Subject<{username: string, socketId: string}[]> = new Subject()
 
-    constructor() {
+    constructor(private router: Router) {
       this.socket = io('http://localhost:3000');
 
       this.socket.on('clients', (data: {username: string, socketId: string}[])=> {
@@ -45,6 +46,18 @@ export class SocketService {
       });
     }
 
+    challengeAccepted() {
+      this.socket.emit('challengeAccepted')
+    }
+
+    redirect(): Observable<string> {
+      return new Observable((observer) => {
+        this.socket.on('redirect', (url: string) => {
+          this.router.navigate([url]);
+        });
+      });
+    }
+
     setColor(username: string, color: string) {
       this.emit('setColor', { username, color });
     }
@@ -53,4 +66,12 @@ export class SocketService {
       return this.on('colorChange');
     }
 
+  checkRoomAccess(roomId: string): Observable<{isAllowed: boolean, allowedParticipants :string[]}> {
+    return new Observable((observer) => {
+      this.socket.emit('checkRoomAccess', roomId);
+      this.socket.on('roomAccessResult', (data: {isAllowed: boolean, allowedParticipants :string[]}) => {
+        observer.next(data);
+      });
+    });
+  }
 }
