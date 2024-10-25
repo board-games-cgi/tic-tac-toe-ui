@@ -85,6 +85,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("closeGame", (roomId) => {
+        io.in(roomId).emit('redirect', '/');
         io.in(roomId).socketsLeave(roomId);
     })
 })
