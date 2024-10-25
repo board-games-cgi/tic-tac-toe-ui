@@ -82,4 +82,8 @@ export class SocketService {
   listenForBoardUpdates(): Observable<{ board: (string | null)[], nextPlayer: string }> {
     return this.on('updateBoard');
   }  
+
+  closeGame(roomId: string) {
+    this.socket.emit('closeGame', roomId)
+  }
 }

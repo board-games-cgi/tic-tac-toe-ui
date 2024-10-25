@@ -83,6 +83,13 @@ io.on("connection", (socket) => {
             io.to(roomId).emit("updateBoard", { board: gameStates[roomId], nextPlayer: player === 'X' ? 'O' : 'X' });
         }
     });
+
+    socket.on("closeGame", (roomId) => {
+        socket.leave(roomId)
+
+        const clients = io.sockets.adapter.rooms.get(roomId)
+        console.log(clients)
+    })
 })
 
 http.listen(port, () => {
