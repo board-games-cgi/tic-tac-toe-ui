@@ -14,9 +14,22 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GameComponent implements OnInit {
   roomId: string = '';
+  board: (string | null)[] = Array(9).fill(null);
+  currentPlayer: string = 'X'; 
   public roomAccessError: string = '';
   constructor(private socketService: SocketService, private route: ActivatedRoute) { }
 
+  onCellClick(cellIndex: number): void {
+    if (this.board[cellIndex] !== null) {
+      return;
+    }
+    
+    this.board[cellIndex] = this.currentPlayer;
+
+    console.log(`Cell clicked: ${cellIndex}, Player: ${this.currentPlayer}`);
+
+    this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
